@@ -14,3 +14,6 @@ free  >> sys_info/4.memory_info.txt
 xrandr >> sys_info/5.display_info.txt
 
 nvidia-smi >> sys_info/6.graphic_info.txt
+
+dpkg --get-selections >> sys_info/7.app_list.txt
+# use dpkg --get-selections | grep <keyword> to find specific app
