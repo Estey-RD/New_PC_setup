@@ -53,12 +53,6 @@ sudo apt install neofetch -y
 sudo apt install python3
 
 # --------------------------------------------------
-# timeshift (restore point software)
-sudo apt install timeshift
-# create a snapshot 
-sudo timeshift --create
-
-# --------------------------------------------------
 # anaconda 
 #  Prerequisites pack:
 sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y
@@ -80,6 +74,24 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearm
 echo "deb [signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
 sudo apt update
 sudo apt install sublime-text
+
+# --------------------------------------------------
+# Chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get install -f
+google-chrome
+
+# --------------------------------------------------
+# docker
+sudo apt update
+sudo apt install -y docker.io
+
+# --------------------------------------------------
+# timeshift (restore point software)
+sudo apt install timeshift
+# create a snapshot 
+sudo timeshift --create
 
 # --------------------------------------------------
 # Nvidia utilis
