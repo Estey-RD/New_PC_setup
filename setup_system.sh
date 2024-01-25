@@ -61,6 +61,9 @@ wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
 bash Anaconda3-2023.09-0-Linux-x86_64.sh -b
 export PATH=~/anaconda3/bin:$PATH
 rm -rf Anaconda3-2023.09-0-Linux-x86_64.sh
+# add anaconda3/bin to bashrc, so that we can use conda cmd
+echo "" >> ~/.bashrc
+echo 'export PATH=~/anaconda3/bin:$PATH' >> ~/.bashrc
 
 # --------------------------------------------------
 # Vscode
