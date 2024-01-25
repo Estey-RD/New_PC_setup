@@ -1,16 +1,7 @@
+#!/bin/bash
 # --------------------------------------------------
-# To be notice
-# There are some softwares are most convenient ot download directly from the website
-# Such as 
-# Chrome
-# https://www.google.com/chrome/
-# Vscode
-# https://code.visualstudio.com/download
-# Anaconda
-#	download:
-# https://www.anaconda.com/
-# 	manual:
-# https://docs.anaconda.com/free/anaconda/install/linux/
+# record current app list
+dpkg -l >> app_list_before.txt
 
 # --------------------------------------------------
 # update all package first
@@ -95,6 +86,11 @@ sudo apt install -y docker.io
 sudo apt install timeshift
 # create a snapshot 
 sudo timeshift --create
+
+# --------------------------------------------------
+# current app list
+dpkg -l >> app_list_after.txt
+diff app_list_before.txt app_list_after.txt >> installed_app.txt
 
 # --------------------------------------------------
 # Nvidia utilis
