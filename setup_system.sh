@@ -14,7 +14,7 @@
 
 # --------------------------------------------------
 # update all package first
-sudo apt update && sudo apt full-upgrade
+sudo apt update && sudo apt full-upgrade -y
 
 # --------------------------------------------------
 # build-essential
@@ -24,19 +24,13 @@ sudo apt update && sudo apt full-upgrade
 # 	g++
 # 	make
 # 	dpkg-dev
-sudo apt install build-essential
+#	git module
+sudo apt install build-essential git-all -y
 
 # --------------------------------------------------
-# git module
-sudo apt-get install git-all
-
-# --------------------------------------------------
-# apache2 module
-sudo apt-get install apache2
-
-# --------------------------------------------------
-# openssh-server module
-sudo apt-get install openssh-server
+# ubuntu servers module:
+# 	apache2, openssh
+sudo apt-get install apache2 openssh-server -y
 
 # --------------------------------------------------
 # Firewall setting
@@ -45,16 +39,14 @@ sudo ufw enable
 sudo ufw allow ssh 
 
 # --------------------------------------------------
-# htop module
+# system monitor
+# 	htop, powertop
 sudo snap install htop
+sudo apt install powertop
 
 # --------------------------------------------------
 # neofetch module
-sudo apt install neofetch
-
-# --------------------------------------------------
-# powertop module， power monitor software, $ powertop to use
-sudo apt install powertop
+sudo apt install neofetch -y
 
 # --------------------------------------------------
 # python3 
@@ -69,10 +61,11 @@ sudo timeshift --create
 # --------------------------------------------------
 # anaconda 
 #  Prerequisites pack:
-sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y
 #  installer package
 wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
 bash Anaconda3-2023.09-0-Linux-x86_64.sh -b
+export PATH=~/anaconda3/bin:$PATH
 rm -rf Anaconda3-2023.09-0-Linux-x86_64.sh
 
 # --------------------------------------------------
@@ -80,6 +73,13 @@ rm -rf Anaconda3-2023.09-0-Linux-x86_64.sh
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 sudo dpkg -i vscode.deb
 rm vscode.deb
+
+# --------------------------------------------------
+# Sublimetext
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
+sudo apt update
+sudo apt install sublime-text
 
 # --------------------------------------------------
 # Nvidia utilis
