@@ -1,3 +1,5 @@
+When doing system setup script, comment out the part that you don't need
+
 Disk Partition Table setup:
 
 1. EFI   600 MB      ( for UEFI boot )
