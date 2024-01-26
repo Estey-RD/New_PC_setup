@@ -1,4 +1,5 @@
 #!/bin/bash
+# Not included here: VPN
 # --------------------------------------------------
 # record current app list
 dpkg -l >> app_list_before.txt
@@ -63,15 +64,6 @@ rm google-chrome-stable_current_amd64.deb
 # docker
 sudo apt update
 sudo apt install -y docker.io
-# --------------------------------------------------
-# NCSU VPN
-sudo wget https://download.comtech.ncsu.edu/vpn/anyconnect-linux64-4.10.04071-predeploy-k9.tar.gz
-sudo tar -xzvf anyconnect-linux64-4.10.04071-predeploy-k9.tar.gz 
-cd anyconnect-linux64-4.10.04071/
-cd vpn
-sudo ./vpn_install.sh
-rm -r anyconnect-linux64-4.10.04071
-rm anyconnect-linux64-4.10.04071-predeploy-k9.tar.gz 
 # --------------------------------------------------
 # timeshift (restore point software)
 sudo apt install timeshift
