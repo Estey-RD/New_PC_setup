@@ -9,7 +9,7 @@ lsblk >> sys_info/2.blk_info.txt
 
 df -h >> sys_info/3.os_blk_info.txt
 
-free  >> sys_info/4.memory_info.txt
+free -h -t >> sys_info/4.memory_info.txt
 
 xrandr >> sys_info/5.display_info.txt
 
