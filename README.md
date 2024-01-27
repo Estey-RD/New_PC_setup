@@ -1,5 +1,7 @@
 When doing system setup script, comment out the part that you don't need
 
+``` source setup_system.sh ```
+
 Disk Partition Table setup:
 
 1. EFI   600 MB      ( for UEFI boot )
