@@ -25,6 +25,7 @@ sudo ufw allow ssh
 # 	htop, powertop
 sudo snap install htop
 sudo apt install powertop
+sudo apt-get install iftop
 # --------------------------------------------------
 # neofetch module
 sudo apt install neofetch -y
@@ -43,6 +44,9 @@ rm -rf Anaconda3-2023.09-0-Linux-x86_64.sh
 # add anaconda3/bin to bashrc, so that we can use conda cmd
 echo "" >> ~/.bashrc
 echo 'export PATH=~/anaconda3/bin:$PATH' >> ~/.bashrc
+conda update conda
+conda init
+conda config --set auto_activate_base false
 # --------------------------------------------------
 # Vscode
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
