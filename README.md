@@ -2,6 +2,12 @@ When doing system setup script, comment out the part that you don't need
 
 ``` source setup_system.sh ```
 
+It will do:  
+1. Create an application list before run
+2. Install some app
+3. Install timeshift and create a snapshot (just like Windows recovery point)
+4. Create an application list after the run, also create another file containing all the app installed
+
 Disk Partition Table setup:
 
 1. EFI   600 MB      ( for UEFI boot )
