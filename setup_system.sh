@@ -22,10 +22,10 @@ sudo ufw enable
 sudo ufw allow ssh 
 # --------------------------------------------------
 # system monitor
-# 	htop, powertop
 sudo snap install htop
 sudo apt install powertop
 sudo apt-get install iftop
+sudo apt install iperf
 # --------------------------------------------------
 # neofetch module
 sudo apt install neofetch -y
