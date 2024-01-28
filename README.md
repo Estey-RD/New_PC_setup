@@ -17,6 +17,3 @@ Disk Partition Table setup:
 3. /     30721       ( for kernel )
 4. /home 512001      ( main partition )
 
-Chrome
-VScode
-Sublime Text
