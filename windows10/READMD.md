@@ -18,3 +18,8 @@ Mode                 LastWriteTime         Length Name
 That means you are on the right track
 
 ``` .\windows_setup.ps1 ``` to start installing
+
+Other useful apps are like:
+* TreeSize
+* CeystalDiskinfo
+* Diskgenius
