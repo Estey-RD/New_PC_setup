@@ -23,3 +23,4 @@ Other useful apps are like:
 * TreeSize
 * CeystalDiskinfo
 * Diskgenius
+* (These apps has no direct download link, hidden by the resource site, such as :"wait for 5 second, download will begin shortly")
