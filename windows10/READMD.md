@@ -1,9 +1,9 @@
 # Windows 10 quick setup script
 
-Only some app can be install with just script(like ubuntu just one line of ```apt install``` and job down). So most of the time you still need to click "next" on pop up windows manually.
-At least this will save your time on finding the resources.
+Only some apps can be installed with just script(like Ubuntu just one line of ```apt install``` and job down). So most of the time you still need to click "next" on pop-up windows manually.
+At least this will save you time in finding the resources.
 
-First create a working directory, and download script to there.
+First, create a working directory, and download the script there.
 
 Use ```Win + S``` , type in ```powershell```, open it with admin mode.
 
@@ -21,6 +21,6 @@ That means you are on the right track
 
 Other useful apps are like:
 * TreeSize
-* CeystalDiskinfo
+* CrystalDiskinfo
 * Diskgenius
-* (These apps has no direct download link, hidden by the resource site, such as :"wait for 5 second, download will begin shortly")
+* (These apps have no direct download link, hidden by the resource site, such as:"Wait for 5 seconds, download will begin shortly")
