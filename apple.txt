@@ -1,0 +1,10 @@
+Just some note
+
+Powermetrics sudo
+iterm2
+oh-mu-zsh
+
+pycharm
+clion
+
+raycast
