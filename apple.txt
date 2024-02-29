@@ -8,3 +8,12 @@ pycharm
 clion
 
 raycast
+zetero
+
+KeyClu
+Hidden Bar
+Xnip
+
+Quiet Reader
+Rectangle
+Appcleaner
