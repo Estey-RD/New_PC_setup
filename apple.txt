@@ -17,3 +17,5 @@ Xnip
 Quiet Reader
 Rectangle
 Appcleaner
+
+whisky
