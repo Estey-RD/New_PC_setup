@@ -6,7 +6,11 @@ eval "$(/usr/local/bin/brew shellenv)"
 brew update
 # Install some software
 brew install htop
+brew install tree
 brew install python
 brew install zsh
-# Install VSocde
+# Rectangle, windows control plugin software
+brew install --cask rectangle
+# Install VSocde and iterm2
 brew install --cask visual-studio-code
+brew install --cask iterm2
