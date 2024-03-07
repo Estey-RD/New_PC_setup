@@ -1,7 +1,6 @@
 Just some note
 
 Powermetrics sudo
-iterm2
 
 pycharm
 clion
