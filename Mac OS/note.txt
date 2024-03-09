@@ -2,7 +2,8 @@ Setting:
   Trackpad:  Tap to click
   Battery:   On battery: Low power
              On power adapter: High power
-             Wake for network access:  Never
+             Put hard drive to sleep:  On battery
+             Wake for network access:  On Power Adapter
 
 Just some note
 
