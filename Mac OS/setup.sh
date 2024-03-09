@@ -10,10 +10,14 @@ brew install htop
 brew install tree
 brew install python
 brew install zsh
+brew install mos
 # Rectangle, windows control plugin software
 brew install --cask rectangle
-# Install VSocde， iterm2 and Chrome
+# Install VSocde， iterm2, Chrome and Steam
 brew install --cask visual-studio-code
 brew install --cask iterm2
 brew install --cask google-chrome
+brew install --cask steam
+
+
 
