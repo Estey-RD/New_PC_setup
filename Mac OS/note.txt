@@ -1,3 +1,8 @@
+Setting:
+  Trackpad:  Tap to click
+  Battery:   On battery: Low power
+             On power adapter: High power
+
 Just some note
 
 Powermetrics sudo
@@ -13,7 +18,10 @@ Hidden Bar
 Xnip
 
 Quiet Reader
-Rectangle
 Appcleaner
 
 whisky
+
+alfred
+sizeup
+IINA 
