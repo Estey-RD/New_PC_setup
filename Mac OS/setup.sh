@@ -18,3 +18,6 @@ brew install --cask visual-studio-code
 brew install --cask iterm2
 brew install --cask google-chrome
 brew install --cask steam
+# Oh my zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
