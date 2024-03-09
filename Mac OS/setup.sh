@@ -20,6 +20,8 @@ brew install --cask google-chrome
 # Gaming
 brew install --cask steam
 brew install --cask whisky
+# MS Office 
+brew install onenote-cli
 # Oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
