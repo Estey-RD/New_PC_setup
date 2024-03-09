@@ -5,6 +5,9 @@ Setting:
              Put hard drive to sleep:  On battery
              Wake for network access:  On Power Adapter
 
+Get from appstore:
+  Stats--CPU,Fan,Memory,Tem
+
 Just some note
 
 Powermetrics sudo
