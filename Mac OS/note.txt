@@ -2,6 +2,7 @@ Setting:
   Trackpad:  Tap to click
   Battery:   On battery: Low power
              On power adapter: High power
+             Wake for network access:  Never
 
 Just some note
 
