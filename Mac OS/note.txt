@@ -1,5 +1,6 @@
 Setting:
   Trackpad:  Tap to click
+             Dragging style: Use trackpad for dragging, Dragging style: Without Drag lock
   Battery:   On battery: Low power
              On power adapter: High power
              Put hard drive to sleep:  On battery
