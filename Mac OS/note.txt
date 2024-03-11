@@ -8,6 +8,8 @@ Setting:
 
 Get from appstore:
   Stats--CPU,Fan,Memory,Tem
+  Microsoft Office, Onedrive, Onenote
+  Zoom
 
 Just some note
 
