@@ -21,6 +21,7 @@ brew install --cask google-chrome
 # Gaming
 brew install --cask steam
 brew install --cask whisky
+brew install --cask zed
 # MS Office 
 brew install onenote-cli
 # Oh my zsh
