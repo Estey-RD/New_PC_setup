@@ -26,4 +26,14 @@ brew install --cask zed
 brew install onenote-cli
 # Oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Anaconda3
+curl -O https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh
+bash Anaconda3-2021.11-MacOSX-x86_64.sh -b
+echo 'export PATH="/Users/estey/anaconda3/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+conda update conda -y
+conda init zsh
+conda config --set auto_activate_base false
+rm -rf Anaconda3-2021.11-MacOSX-x86_64.sh
+
 
