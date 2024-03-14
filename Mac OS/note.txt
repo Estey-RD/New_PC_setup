@@ -12,6 +12,10 @@ Get from appstore:
   Zoom
   hiddenbar
 
+Get from Webside:
+  Clion
+  PyCharm
+
 Just some note
 
 Powermetrics sudo
