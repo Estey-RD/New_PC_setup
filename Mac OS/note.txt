@@ -20,9 +20,6 @@ Just some note
 
 Powermetrics sudo
 
-pycharm
-clion
-
 raycast
 zetero
 
