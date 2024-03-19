@@ -28,6 +28,10 @@ brew install --cask zed
 brew install onenote-cli
 # Oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Powerlevel10k theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+#ZSH_THEME="powerlevel10k/powerlevel10k"
+#source ~/.zshrc
 # Anaconda3
 curl -O https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh
 bash Anaconda3-2021.11-MacOSX-x86_64.sh -b
