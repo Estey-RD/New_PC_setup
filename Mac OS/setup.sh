@@ -26,6 +26,8 @@ brew install --cask whisky
 brew install --cask zed
 # MS Office 
 brew install onenote-cli
+# Paint
+brew install --cask paintbrush
 # Oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # Powerlevel10k theme
