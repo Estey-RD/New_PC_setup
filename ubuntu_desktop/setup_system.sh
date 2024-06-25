@@ -9,8 +9,9 @@ sudo apt update && sudo apt full-upgrade -y
 # --------------------------------------------------
 # build-essential
 # This include:
-# 	libc6-dev, gcc, g++, make, dpkg-dev, git
+# 	libc6-dev, gcc, g++, make, dpkg-dev, git and tree
 sudo apt install build-essential git-all -y
+sudo snap install tree
 # --------------------------------------------------
 # ubuntu servers module:
 # 	apache2, openssh
