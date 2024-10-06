@@ -19,6 +19,12 @@ That means you are on the right track
 
 ``` .\windows_setup.ps1 ``` to start installing
 
+Use this cmd in powershell if encountered permissions issue
+```Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser```
+
+Activate Windows by using 
+https://github.com/massgravel/Microsoft-Activation-Scripts
+
 Other useful apps are like:
 * TreeSize
 * CrystalDiskinfo
