@@ -1,5 +1,6 @@
 # Windows 10 quick setup script
 
+## Quick start
 Only some apps can be installed with just script(like Ubuntu just one line of ```apt install``` and job down). So most of the time you still need to click "next" on pop-up windows manually.
 At least this will save you time in finding the resources.
 
@@ -22,10 +23,10 @@ That means you are on the right track
 Use this cmd in powershell if encountered permissions issue
 ```Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser```
 
-Activate Windows by using 
+## Activate Windows by using 
 https://github.com/massgravel/Microsoft-Activation-Scripts
 
-Nvidia CUDA tool kit 
+## Nvidia CUDA tool kit 
 
 
 
