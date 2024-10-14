@@ -29,6 +29,11 @@ https://github.com/massgravel/Microsoft-Activation-Scripts
 ## Nvidia CUDA tool kit 
 
 1. run ```nvidia-smi``` in cmd, check the [CUDA Version] on top right, that would be the upper limit version of your CUDA runtime version
+2. https://developer.nvidia.com/cuda-downloads?target_os=Windows&target_arch=x86_64&target_version=11 download and install your version
+3. Check successful installment: ```nvcc --version--```
+4. https://developer.nvidia.com/rdp/cudnn-archive download the right version(I choose the zip)
+5. Extract the file into the directory, normally its: ```C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6```
+6. Check successful installment: ```cd C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\extras\demo_suite``` then ```bandwidthTest.exe``` ```deviceQuery.exe```
 
 
 
