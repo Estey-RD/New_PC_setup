@@ -28,6 +28,8 @@ https://github.com/massgravel/Microsoft-Activation-Scripts
 
 ## Nvidia CUDA tool kit 
 
+1. run ```nvidia-smi``` in cmd, check the [CUDA Version] on top right, that would be the upper limit version of your CUDA runtime version
+
 
 
 Other useful apps are like:
