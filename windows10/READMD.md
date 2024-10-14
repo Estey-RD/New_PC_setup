@@ -25,6 +25,10 @@ Use this cmd in powershell if encountered permissions issue
 Activate Windows by using 
 https://github.com/massgravel/Microsoft-Activation-Scripts
 
+Nvidia CUDA tool kit 
+
+
+
 Other useful apps are like:
 * TreeSize
 * CrystalDiskinfo
