@@ -1,0 +1,4 @@
+# Force reboot
+sudo reboot
+# Kill all messages
+killall NotificationCenter
