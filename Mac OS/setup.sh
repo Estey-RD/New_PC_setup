@@ -14,8 +14,12 @@ brew install mos
 gem install iStats
 # Rectangle, windows control plugin software
 brew install --cask rectangle
+# Blender
+brew install --cask blender
 # Xcode
 xcode-select --install
+# Node.js
+brew install node
 # Install VSocde， iterm2, Chrome
 brew install --cask visual-studio-code
 brew install --cask iterm2
