@@ -2,3 +2,5 @@
 sudo reboot
 # Kill all messages
 killall NotificationCenter
+#
+sudo powermetrics
