@@ -11,6 +11,7 @@ Get from appstore:
   Microsoft Office, Onedrive, Onenote
   Zoom
   hiddenbar
+  niboard
 
 Get from Webside:
   Clion
