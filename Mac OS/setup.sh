@@ -13,7 +13,7 @@ brew install tree
 brew install python
 brew install zsh
 brew install mos
-gem install iStats
+gem install stats
 
 # Rectangle, windows control plugin software
 brew install --cask rectangle
