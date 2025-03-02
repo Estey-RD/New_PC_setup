@@ -15,6 +15,9 @@ brew install zsh
 brew install mos
 gem install stats
 
+# System tools
+brew install iproute2mac
+
 # Rectangle, windows control plugin software
 brew install --cask rectangle
 # Blender
