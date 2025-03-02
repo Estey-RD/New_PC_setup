@@ -1,0 +1,43 @@
+如何用一根网线直连两台电脑, 并让他们互相能传输数据?
+
+目前的材料: 一台MacOS, 一台TrueNAS
+
+MacOS:
+    1.  
+    使用 
+    ip addr | awk 
+    来寻找一个可用的以太网接口, 比如下面这个en8
+    en8: <UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500 status UP
+    link/ether 00:e0:4c:68:01:21 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.100.1/24 brd 192.168.100.255
+    inet6 fe80::4e9:e39b:ed8a:1c24/64
+    2.
+    使用
+    sudo ifconfig en8 192.168.100.1 netmask 255.255.255.0 up
+    来手动设置en8的网段和网关
+
+TrueNAS:
+    1.
+    安装以后 进入linux控制台
+    首先使用
+    service nginx status
+    检查当前nginx的web服务是否正常运转, 若未正常运转, 则:
+    service nginx restart
+    来重启
+    2.
+    使用
+    ifconfig
+    来寻找所有可用的以太网接口, 比如enp4s0
+    然后使用
+    sudo ifconfig enp4s0 192.168.100.2 netmask 255.255.255.0 up
+    来手动设置这个接口 和macos同为一个网段下
+
+到此两者基本设置完毕, 你可以使用ping功能测试两者之间的连接:
+MacOS:
+    ping 192.168.100.2 
+TrueNAS:
+    pint 192.168.100.1
+
+两者如果能互相连接并有延迟 则说明成功
+
+然后在MacOS上使用Safari(chrome 不行 不知道为什么) 输入192.169.100.2 就会自动定向到TrueNAS所监听的接口, 并进入TrueNAS的管理页面
