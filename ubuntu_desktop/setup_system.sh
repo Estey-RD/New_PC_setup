@@ -39,7 +39,7 @@ sudo apt install python3
 sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y
 #  installer package
 wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
-bash Anaconda3-2023.09-0-Linux-x86_64.sh -b
+bash Anaconda3-2023.09-0-Linux-x86_64.sh -b -y
 export PATH=~/anaconda3/bin:$PATH
 rm -rf Anaconda3-2023.09-0-Linux-x86_64.sh
 # add anaconda3/bin to bashrc, so that we can use conda cmd
