@@ -51,7 +51,7 @@ conda config --set auto_activate_base false
 # --------------------------------------------------
 # Vscode
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-yes | sudo dpkg -i vscode.deb
+sudo DEBIAN_FRONTEND=noninteractive dpkg -i vscode.deb
 rm vscode.deb
 # --------------------------------------------------
 # Sublimetext
