@@ -27,6 +27,7 @@ sudo snap install htop
 sudo apt install powertop
 sudo apt-get install iftop
 sudo apt install iperf
+sudo apt install smartmontools
 # --------------------------------------------------
 # neofetch module
 sudo apt install neofetch -y
