@@ -1,19 +1,32 @@
-# --------------------------------------------------
-mkdir sys_info
+#!/bin/bash
 
-lsb_release -a >> sys_info/0.sys_overview.txt
+# Create the output directory
+mkdir -p sys_info
 
-lscpu >> sys_info/1.cpu_info.txt
+# Set the output file
+OUTPUT_FILE="sys_info/sys_info.txt"
 
-lsblk >> sys_info/2.blk_info.txt
+# Start with an empty file
+> "$OUTPUT_FILE"
 
-df -h >> sys_info/3.os_blk_info.txt
+# Helper function to add section
+add_section() {
+    echo "--------------------------------------------------------------" >> "$OUTPUT_FILE"
+    echo "$1" >> "$OUTPUT_FILE"
+    echo "--------------------------------------------------------------" >> "$OUTPUT_FILE"
+    eval "$2" >> "$OUTPUT_FILE"
+    echo "" >> "$OUTPUT_FILE"
+}
 
-free -h -t >> sys_info/4.memory_info.txt
+# Collect and append system information
+add_section "System Overview" "lsb_release -a"
+add_section "CPU Info" "lscpu"
+add_section "Block Devices" "lsblk"
+add_section "Disk Usage" "df -h"
+add_section "Memory Info 1 available RAM size" "free -h -t"
+add_section "Memory Info 2 Memory hardware" "sudo dmidecode -t 17"
+add_section "Display Info" "xrandr"
+add_section "Graphics Info (NVIDIA)" "nvidia-smi"
+add_section "Installed Applications" "dpkg --get-selections"
 
-xrandr >> sys_info/5.display_info.txt
-
-nvidia-smi >> sys_info/6.graphic_info.txt
-
-dpkg --get-selections >> sys_info/7.app_list.txt
-# use dpkg --get-selections | grep <keyword> to find specific app
+echo "System information collected in: $OUTPUT_FILE"
