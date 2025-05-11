@@ -5,7 +5,7 @@
 MacOS:
     1.  
     使用 
-    ip addr | awk 
+    ip addr
     来寻找一个可用的以太网接口, 比如下面这个en8
     en8: <UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500 status UP
     link/ether 00:e0:4c:68:01:21 brd ff:ff:ff:ff:ff:ff
