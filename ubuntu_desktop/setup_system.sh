@@ -13,6 +13,9 @@ sudo apt update && sudo apt full-upgrade -y
 sudo apt install build-essential git-all -y
 sudo snap install tree
 # --------------------------------------------------
+# other misc or drivers
+sudo ubuntu-drivers autoinstall
+# --------------------------------------------------
 # ubuntu servers module:
 # 	apache2, openssh
 sudo apt-get install apache2 openssh-server -y
@@ -70,9 +73,6 @@ rm google-chrome-stable_current_amd64.deb
 # docker
 sudo apt update
 sudo apt install -y docker.io
-# --------------------------------------------------
-# other misc or drivers
-sudo ubuntu-drivers autoinstall
 # --------------------------------------------------
 # timeshift (restore point software)
 sudo apt install timeshift
