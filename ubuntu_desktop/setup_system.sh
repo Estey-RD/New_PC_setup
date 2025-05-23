@@ -71,6 +71,9 @@ rm google-chrome-stable_current_amd64.deb
 sudo apt update
 sudo apt install -y docker.io
 # --------------------------------------------------
+# other misc or drivers
+sudo ubuntu-drivers autoinstall
+# --------------------------------------------------
 # timeshift (restore point software)
 sudo apt install timeshift
 # create a snapshot 
@@ -79,6 +82,9 @@ sudo timeshift --create
 # current app list
 dpkg -l >> app_list_after.txt
 diff app_list_before.txt app_list_after.txt >> installed_app.txt
+# --------------------------------------------------
+# reboot to apply all changes 
+sudo reboot
 # --------------------------------------------------
 # Nvidia utilis
 # driver needs to be install manually
