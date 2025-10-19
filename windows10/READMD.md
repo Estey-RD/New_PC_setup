@@ -1,5 +1,14 @@
 # Windows 10 quick setup script
 
+## Windows 11 bypass internet:
+
+``` Shift + F10 ```
+
+```
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE /v BypassNRO /t REG_DWORD /d 1 /f
+shutdown /r /t 0
+```
+
 ## Quick start
 Only some apps can be installed with just script(like Ubuntu just one line of ```apt install``` and job down). So most of the time you still need to click "next" on pop-up windows manually.
 At least this will save you time in finding the resources.
