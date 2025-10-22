@@ -1,6 +1,6 @@
 # Windows 10 quick setup script
 
-## Windows 11 bypass internet:
+## Windows 11 24H2 installing bypass internet:
 
 ``` Shift + F10 ```
 
