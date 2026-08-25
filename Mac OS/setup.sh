@@ -28,7 +28,8 @@ echo ">> arch=$ARCH  brew=$BREW_PREFIX  rc=$SHELLRC"
 # ── 2. Ensure Homebrew ────────────────────────────────────────────
 if ! command -v brew >/dev/null 2>&1; then
   echo ">> installing Homebrew (requires sudo + your password)..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # NONINTERACTIVE=1: skip the "Press RETURN/ENTER to continue" prompt
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 eval "$("$BREW_PREFIX/bin/brew" shellenv)"
 brew update
@@ -51,11 +52,14 @@ fi
 cat <<'EOF'
 
 >> DONE. Manual follow-ups (not automatable):
-   1. xcode-select --install
+   1. Verify Xcode CLT (Homebrew already installed it): xcode-select -p
+      (If the above path is empty, run `xcode-select --install`.)
    2. Trackpad: Tap to click / Use trackpad for dragging
-   3. Battery: On power adapter = High power mode
-   4. App Store / website installs: CLion, PyCharm, PlayCover
-      (.ipa from decrypt.day), Niboard, QuietReader
-   5. Blender: from blender.org (cask currently broken in Homebrew 6.x)
-   6. `gem install stats` alternative: brew cask `stats` is listed in Brewfile
+   3. Power: On power adapter = High power mode  (skip on Mac mini)
+   4. App Store / website: CLion, PyCharm
+   5. PlayCover .ipa: decrypt.day
+   6. Try `brew install --cask blender`; if Homebrew's cask bug
+      (broken in 6.0.1 as of 2026-08-24) is still present,
+      install from blender.org instead
+   7. Niboard / QuietReader: no stable cask — dev website
 EOF
