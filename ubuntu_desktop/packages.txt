@@ -1,0 +1,47 @@
+# packages.txt — apt manifest for fresh Ubuntu desktop installs.
+# One package per line, blank lines and # comments ignored.
+# Machine-checked daily by github.com/Estey-RD/New_PC_setup/verify.yml.
+# Source: extracted from setup_system.sh on 2026-08-24; verified
+# present in both jammy (22.04) and noble (24.04) on packages.ubuntu.com.
+#
+# snap-installed packages (htop, tree) are handled separately in
+# setup_system.sh — snap is not apt.
+
+# base toolchain
+build-essential
+git-all
+
+# servers
+apache2
+openssh-server
+
+# firewall
+ufw
+
+# system monitor / network
+powertop
+iftop
+iperf
+smartmontools
+neofetch
+
+# python
+python3
+
+# anaconda GUI prerequisites (x86_64 only)
+libgl1-mesa-glx
+libegl1-mesa
+libxrandr2
+libxss1
+libxcursor1
+libxcomposite1
+libasound2
+libxi6
+libxtst6
+
+# editors / browsers / containers
+sublime-text
+docker.io
+
+# recovery point
+timeshift

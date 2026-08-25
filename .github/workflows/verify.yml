@@ -1,0 +1,115 @@
+name: verify
+
+on:
+  push:
+  schedule:
+    - cron: "17 6 * * *"   # daily 06:17 UTC
+
+jobs:
+  syntax:
+    name: bash -n + PowerShell parse
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: bash -n (all .sh)
+        run: |
+          while IFS= read -r f; do echo ">> $f"; bash -n "$f"; done \
+            < <(find . -name '*.sh' -not -path './.git/*')
+      - name: PowerShell AST parse (.ps1)
+        run: |
+          pwsh -NoProfile -Command '
+            $fails = 0
+            $files = Get-ChildItem -Recurse -Filter *.ps1 | Where-Object { $_.FullName -notmatch "\.git" }
+            foreach ($f in $files) {
+              $errs = $null
+              [void][System.Management.Automation.Language.Parser]::ParseFile(
+                $f.FullName, [ref]$null, [ref]$errs)
+              if ($errs) {
+                $errs | ForEach-Object { Write-Host ("ERR " + $_.Message) }
+                $fails = 1
+              } else { Write-Host ("OK  " + $f.FullName) }
+            }
+            exit $fails
+          '
+
+  ubuntu-names:
+    name: apt manifest vs noble + jammy
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: verify
+        run: |
+          fail=0
+          while IFS= read -r pkg; do
+            case "$pkg" in ''|\#*) continue;; esac
+            for r in noble jammy; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 "https://packages.ubuntu.com/$r/$pkg")
+              if [[ "$code" == "200" ]]; then echo "OK:   $pkg in $r"
+              else echo "FAIL: $pkg not in $r ($code)"; fail=1; fi
+            done
+          done < ubuntu_desktop/packages.txt
+          exit $fail
+
+  brew-names:
+    name: Brewfile names vs upstream Homebrew
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: verify (existence, not installation)
+        # brew bundle check is NOT used here: it asserts *local installation*,
+        # which is always false on a fresh CI image. `brew info` asserts the
+        # name still exists upstream — that is what "rot" means for this repo.
+        run: |
+          set -e
+          while read -r type name _; do
+            case "$type" in \#*|"") continue;; esac
+            case "$type" in
+              brew)
+                if brew info --formula "$name" >/dev/null 2>&1; then
+                  echo "OK  formula $name"
+                else
+                  echo "FAIL formula $name"; exit 1
+                fi ;;
+              cask)
+                if brew info --cask "$name" >/dev/null 2>&1; then
+                  echo "OK  cask $name"
+                elif brew info --formula "$name" >/dev/null 2>&1; then
+                  echo "WARN $name exists but as a formula, not a cask"
+                else
+                  echo "FAIL cask $name (not found)"; exit 1
+                fi ;;
+            esac
+          done < <(awk '{ if ($1 ~ /^(brew|cask|tap)$/ && $2 !~ /^#/) print $1, $2 }' Brewfile)
+
+  urls:
+    name: all embedded URLs resolve
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: collect from manifest files + probe
+        run: |
+          # Only files that are actually executed / listed as dependencies.
+          # README + note files are documentation and may legitimately
+          # mention example URLs that are not dependencies.
+          # Exclude: comment lines (# ...) and template URLs containing
+          # shell variables (${AC_VER}) — those are grep artifacts, not deps.
+          {
+            grep -vE '^[[:space:]]*(#|//|<#)' -h "Mac OS/setup.sh" "Mac OS/tools" 2>/dev/null
+            grep -vE '^[[:space:]]*(#|//|<#)' -h "ubuntu_desktop/setup_system.sh" 2>/dev/null
+            grep -vE '^[[:space:]]*(#|//|<#)' -h "windows10/windows_setup.ps1" 2>/dev/null
+          } | grep -hoE 'https?://[^ )"，,`>】]+[A-Za-z0-9/_-]' \
+            | grep -vE '\$\{' \
+            | sed 's/[),;]\{1,\}$//' | sort -u > urls.txt
+          echo '--- url list ---'; cat urls.txt
+          fail=0
+          while IFS= read -r u; do
+            code=$(curl -sL -o /dev/null -w '%{http_code}' --max-time 25 "$u" || echo 000)
+            if [[ "$code" =~ ^[23][0-9][0-9]$ ]]; then
+              echo "OK   $code  $u"
+            elif [[ "$code" == "429" ]]; then
+              echo "WARN 429 (rate-limited, treated as OK)  $u"
+            else
+              echo "FAIL $code  $u"; fail=1
+            fi
+          done < urls.txt
+          exit $fail

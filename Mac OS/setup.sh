@@ -1,62 +1,61 @@
-# use git cmd to install some software
-git
+#!/usr/bin/env bash
+# ============================================================
+# Fresh Mac deployment script  (idempotent — safe to re-run)
+# Tested names against Homebrew 6.0.1, 2026-08-24.
+#
+# Usage:
+#   bash setup.sh            # full run
+#   bash setup.sh --check    # verify names only, install nothing
+#
+# The software manifest lives in ../Brewfile (machine-verifiable).
+# ============================================================
+set -euo pipefail
 
-# Install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/estey/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+CHECK_ONLY=0
+[[ "${1:-}" == "--check" ]] && CHECK_ONLY=1
+
+# ── 1. Detect architecture (Intel vs Apple Silicon) ──────────────
+ARCH="$(uname -m)"
+if [[ "$ARCH" == "arm64" ]]; then
+  BREW_PREFIX="/opt/homebrew"
+  SHELLRC="${ZDOTDIR:-$HOME}/.zprofile"
+else
+  BREW_PREFIX="/usr/local"
+  SHELLRC="${ZDOTDIR:-$HOME}/.bash_profile"
+fi
+echo ">> arch=$ARCH  brew=$BREW_PREFIX  rc=$SHELLRC"
+
+# ── 2. Ensure Homebrew ────────────────────────────────────────────
+if ! command -v brew >/dev/null 2>&1; then
+  echo ">> installing Homebrew (requires sudo + your password)..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$("$BREW_PREFIX/bin/brew" shellenv)"
 brew update
+echo ">> $(brew --version | head -1)"
 
-# Install some software
-brew install htop
-brew install tree
-brew install python
-brew install zsh
-brew install mos
-gem install stats
+# ── 3. Install the manifest ───────────────────────────────────────
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BREWFILE="$REPO_ROOT/Brewfile"
 
-# System tools
-brew install iproute2mac
+if [[ "$CHECK_ONLY" -eq 1 ]]; then
+  echo ">> CHECK ONLY: verifying manifest names, installing nothing"
+  brew bundle check --no-upgrade --file="$BREWFILE"
+else
+  echo ">> installing from $BREWFILE (already-installed entries are skipped)"
+  # xcode-select --install  (GUI prompt — keep manual, see README)
+  brew bundle install --no-upgrade --file="$BREWFILE"
+fi
 
-# Rectangle, windows control plugin software
-brew install --cask rectangle
-# Blender
-brew install --cask blender
-# Xcode
-xcode-select --install
-# Node.js
-brew install node
+# ── 4. Post-install system notes (manual steps) ───────────────────
+cat <<'EOF'
 
-# Install VSocde， iterm2, Chrome, Openconnect
-brew install --cask visual-studio-code
-brew install --cask iterm2
-brew install --cask google-chrome
-brew install openconnect
-
-# Gaming
-brew install --cask steam
-brew install --cask whisky
-brew install --cask zed
-
-# MS Office 
-brew install onenote-cli
-# Paint
-brew install --cask paintbrush
-
-# Oh my zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# Powerlevel10k theme
-brew install powerlevel10k
-echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
-
-# Anaconda3
-curl -O https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh
-bash Anaconda3-2021.11-MacOSX-x86_64.sh -b
-echo 'export PATH="/Users/estey/anaconda3/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-conda update conda -y
-conda init zsh
-conda config --set auto_activate_base false
-rm -rf Anaconda3-2021.11-MacOSX-x86_64.sh
-
-
+>> DONE. Manual follow-ups (not automatable):
+   1. xcode-select --install
+   2. Trackpad: Tap to click / Use trackpad for dragging
+   3. Battery: On power adapter = High power mode
+   4. App Store / website installs: CLion, PyCharm, PlayCover
+      (.ipa from decrypt.day), Niboard, QuietReader
+   5. Blender: from blender.org (cask currently broken in Homebrew 6.x)
+   6. `gem install stats` alternative: brew cask `stats` is listed in Brewfile
+EOF

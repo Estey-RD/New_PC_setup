@@ -47,7 +47,7 @@ Install-software -software_name "VS_studio" 	-url "https://aka.ms/vs/17/release/
 #Download-software -software_name "PowerToys" 	-url "https://github.com/microsoft/PowerToys/releases/download/v0.81.1/PowerToysSetup-0.81.1-x64.exe"	-file_type exe;
 Download-software -software_name "PowerToys" 	-url "https://github.com/microsoft/PowerToys/releases/download/v0.81.1/PowerToysUserSetup-0.81.1-x64.exe"	-file_type exe;
 Download-software -software_name "mobaxterm" 	-url "https://download.mobatek.net/2362023122033030/MobaXterm_Installer_v23.6.zip" 			-file_type zip;
-Download-software -software_name "winscp" 	-url "https://cdn.winscp.net/files/WinSCP-6.1.2-Setup.exe?secure=L_gmnQlDwXB0QHujO2O65g==,1706845247" 	-file_type exe;
+Download-software -software_name "winscp"		-url "https://winscp.net/download/WinSCP-6.1.2-Setup.exe"		-file_type exe;
 Download-software -software_name "obs" 		-url "https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe"		-file_type exe;
 Download-software -software_name "zoom" 	-url "https://zoom.us/client/5.17.7.31859/ZoomInstallerFull.exe?archType=x64"				-file_type exe;
 Download-software -software_name "teamspeak" 	-url "https://files.teamspeak-services.com/pre_releases/client/5.0.0-beta77/teamspeak-client.msi"	-file_type msi;

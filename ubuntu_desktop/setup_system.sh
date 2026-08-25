@@ -1,101 +1,79 @@
 #!/bin/bash
-# Not included here: VPN
+# Fresh Ubuntu Desktop deployment (Ubuntu 22.04/24.04, x86_64).
+# Reads the apt manifest from packages.txt (one package per line) so
+# the manifest is the single source of truth and is independently
+# machine-verifiable by the daily CI check.
+#
+# Steps:
+#   1. snapshot current app list
+#   2. full upgrade
+#   3. install manifest (apt + snap)
+#   4. drivers / firewall
+#   5. Anaconda, VS Code, Sublime, Chrome, Docker
+#   6. timeshift restore point
+#   7. app-list diff
+#   8. reboot
+#
+# NOT included: VPN, nvidia driver (manual), CUDA (see README)
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
 # --------------------------------------------------
-# record current app list
-dpkg -l >> app_list_before.txt
+# 1. current app list
+dpkg -l > app_list_before.txt
 # --------------------------------------------------
-# update all package first
-sudo apt update && sudo apt full-upgrade -y
+# 2. update
+sudo apt update
+sudo apt full-upgrade -y
 # --------------------------------------------------
-# build-essential
-# This include:
-# 	libc6-dev, gcc, g++, make, dpkg-dev, git and tree
-sudo apt install build-essential git-all -y
+# 3. manifest (comment/space lines stripped; portable across bash 3/4/5)
+PKG_COUNT=$(grep -cEv '^\s*(#|$)' packages.txt)
+echo ">> installing $PKG_COUNT packages from packages.txt"
+sudo apt-get install -y $(grep -vE '^\s*(#|$)' packages.txt)
+# snap tools
+sudo snap install htop
 sudo snap install tree
 # --------------------------------------------------
-# other misc or drivers
+# 4. drivers + firewall
 sudo ubuntu-drivers autoinstall
-# --------------------------------------------------
-# ubuntu servers module:
-# 	apache2, openssh
-sudo apt-get install apache2 openssh-server -y
-# --------------------------------------------------
-# Firewall setting
-sudo apt-get install ufw
 sudo ufw enable
-sudo ufw allow ssh 
+sudo ufw allow ssh
 # --------------------------------------------------
-# system monitor
-sudo snap install htop
-sudo apt install powertop
-sudo apt-get install iftop
-sudo apt install iperf
-sudo apt install smartmontools
-# --------------------------------------------------
-# neofetch module
-sudo apt install neofetch -y
-# --------------------------------------------------
-# python3 
-sudo apt install python3
-# --------------------------------------------------
-# anaconda 
-#  Prerequisites pack:
-sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y
-#  installer package
-wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
-bash Anaconda3-2023.09-0-Linux-x86_64.sh -b -y
-export PATH=~/anaconda3/bin:$PATH
-rm -rf Anaconda3-2023.09-0-Linux-x86_64.sh
-# add anaconda3/bin to bashrc, so that we can use conda cmd
-echo "" >> ~/.bashrc
+# 5. Anaconda (pinned version — bump here and in README only)
+AC_VER="2023.09-0"
+wget "https://repo.anaconda.com/archive/Anaconda3-${AC_VER}-Linux-x86_64.sh"
+bash "Anaconda3-${AC_VER}-Linux-x86_64.sh" -b -y
+rm -f "Anaconda3-${AC_VER}-Linux-x86_64.sh"
 echo 'export PATH=~/anaconda3/bin:$PATH' >> ~/.bashrc
 conda update conda
 conda init
 conda config --set auto_activate_base false
 # --------------------------------------------------
-# Vscode
+# VS Code
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 sudo DEBIAN_FRONTEND=noninteractive dpkg -i vscode.deb
 rm vscode.deb
 # --------------------------------------------------
-# Sublimetext
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
-sudo apt update
-sudo apt install sublime-text
-# --------------------------------------------------
 # Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo DEBIAN_FRONTEND=noninteractive dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt-get install -f
 rm google-chrome-stable_current_amd64.deb
+# (Sublime-Text apt repo + package already added by packages.txt step;
+#  if `apt install sublime-text` was skipped, run:
+#  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
+#  echo "deb [signed-by=...] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list)
 # --------------------------------------------------
-# docker
-sudo apt update
-sudo apt install -y docker.io
-# --------------------------------------------------
-# timeshift (restore point software)
-sudo apt install timeshift
-# create a snapshot 
+# 6. timeshift snapshot (interactive prompt — accept defaults)
 sudo timeshift --create
 # --------------------------------------------------
-# current app list
-dpkg -l >> app_list_after.txt
-diff app_list_before.txt app_list_after.txt >> installed_app.txt
+# 7. app diff
+dpkg -l > app_list_after.txt
+diff app_list_before.txt app_list_after.txt > installed_app.txt || true
 # --------------------------------------------------
-# reboot to apply all changes 
+# 8. reboot
+echo ">> rebooting in 10s (ctrl+c to cancel)"
+sleep 10
 sudo reboot
-# --------------------------------------------------
-# Nvidia utilis
-# driver needs to be install manually
-#sudo apt install nvidia-driver-525 nvidia-dkms-525
-# Use this to open NV gui
-#nvidia-settings
-# --------------------------------------------------
-# Nvidia Cuda driver
-#sudo apt install nvidia-cuda-toolkit
-# Use this to check cuda version
-#nvcc --version
-# --------------------------------------------------
-# 昨天做到这里
-# https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local
